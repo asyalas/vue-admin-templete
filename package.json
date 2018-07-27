@@ -10,7 +10,8 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "vue": "^2.5.2",
@@ -78,7 +79,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,vue}": [
-      "eslint --fix",
+      "eslint",
       "git add"
     ]
   },
