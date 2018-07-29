@@ -1,10 +1,9 @@
 
-import HelloWorld from './container/HelloWorld'
 // import {store, getter} from './store'
 export const route = {
   path: '/',
   name: 'HelloWorld',
-  component: HelloWorld
+  component: () => import('./container/HelloWorld')
 }
 
 // export const stores = {

@@ -11,6 +11,13 @@ const routes = Object.keys(manifest)
   .map(key => manifest[key].route)
 let router = new Router({
   mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  },
   routes: [
     ...routes,
     { path: '*', component: page404 }

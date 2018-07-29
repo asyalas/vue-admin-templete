@@ -1,10 +1,9 @@
 
-import Vuex from './container/vuex'
 import {store, getter} from './store'
 export const route = {
   path: '/vuex',
   name: 'vuex',
-  component: Vuex
+  component: () => import('./container/vuex')
 }
 
 export const stores = {
