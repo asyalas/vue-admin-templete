@@ -1,6 +1,23 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2>demo</h2>
+    <ul>
+      <li>
+         <a
+          href="/#/ElementUI"
+        >
+          ElementUI
+        </a>
+      </li>
+      <li>
+         <a
+          href="/#/Vuex"
+        >
+          Vuex
+        </a>
+      </li>
+    </ul>
     <h2>Essential Links</h2>
     <ul>
       <li>

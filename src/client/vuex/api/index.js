@@ -2,9 +2,9 @@
 export const promiseAPi = () => new Promise(function (resolve, reject) {
   setTimeout(() => {
     resolve()
-  }, 2000)
+  }, 1000)
 }).then(() => ({
   code: 1,
   msg: '',
-  data: 'txtAsyc success'
+  data: 'success,the value is  '
 }))

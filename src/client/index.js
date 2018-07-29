@@ -1,6 +1,8 @@
-import * as demo from './demo'
-import * as vuex from './vuex'
+import * as ElementUI from './ElementUI'
+import * as Vuex from './Vuex'
+import * as HelloWorld from './HelloWorld'
 export {
-  demo,
-  vuex
+  ElementUI,
+  Vuex,
+  HelloWorld
 }
