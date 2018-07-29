@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import * as manifest from '../client'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
-import {page404} from '../component'
+import {page404} from 'component'
 Vue.use(Router)
 // 注入路由
 const routes = Object.keys(manifest)
