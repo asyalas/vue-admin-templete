@@ -4,18 +4,10 @@
     <h2>demo</h2>
     <ul>
       <li>
-         <a
-          href="/#/ElementUI"
-        >
-          ElementUI
-        </a>
+        <router-link to="/ElementUI">ElementUI</router-link>
       </li>
       <li>
-         <a
-          href="/#/Vuex"
-        >
-          Vuex
-        </a>
+         <router-link to="/Vuex">Vuex</router-link>
       </li>
     </ul>
     <h2>Essential Links</h2>
