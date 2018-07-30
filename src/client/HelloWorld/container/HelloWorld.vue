@@ -9,6 +9,12 @@
       <li>
          <router-link to="/Vuex">Vuex</router-link>
       </li>
+      <li>
+         <router-link to="/Svg">Svg</router-link>
+      </li>
+      <li>
+         <router-link to="/iView">iView</router-link>
+      </li>
     </ul>
     <h2>Essential Links</h2>
     <ul>
