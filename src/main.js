@@ -16,10 +16,10 @@ import 'normalize.css/normalize.css'
 import iView from 'iView'
 import 'iview/dist/styles/iview.css'
 
-// 引入svg组件
-import SvgIcon from 'component/svg'// svg组件
-// register globally
-Vue.component('svg-icon', SvgIcon)
+import {Svg} from 'component'// svg组件
+// 全局注册svg组件
+Vue.component('svg-icon', Svg)
+// 对svg目录的svg文件自动进行svg-sprite-loader
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 const req = require.context('../static/svg', false, /\.svg$/)
 requireAll(req)

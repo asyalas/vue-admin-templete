@@ -45,12 +45,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'txt',
-      'txtAsync',
-      'loading'
-    ])
-
+    ...mapGetters({
+      txt: 'user.txt',
+      txtAsync: 'user.txtAsync',
+      loading: 'user.loading'
+    })
   },
   methods: {
     submitTxt () {

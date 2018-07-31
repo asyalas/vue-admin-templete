@@ -1,6 +1,5 @@
 import { promiseAPi } from '../api'
-import getter from './getter'
-const store = {
+export default {
   namespace: 'user',
   state: {
     txt: 'i am txt',
@@ -43,4 +42,3 @@ const store = {
     }
   }
 }
-export {getter, store}

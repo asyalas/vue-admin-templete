@@ -1,6 +1,8 @@
 import page404 from './page404'
-import container from './container'
+import routeContainer from './container'
+import Svg from './svg'
 export {
   page404,
-  container
+  routeContainer,
+  Svg
 }

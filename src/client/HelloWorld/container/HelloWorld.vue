@@ -15,6 +15,9 @@
       <li>
          <router-link to="/iView">iView</router-link>
       </li>
+      <li>
+         <router-link to="/demo">demo</router-link>
+      </li>
     </ul>
     <h2>Essential Links</h2>
     <ul>

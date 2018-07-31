@@ -2,9 +2,9 @@
 import model from './store/model'
 import getter from './store/getter'
 export const route = {
-  path: '/vuex',
-  name: 'vuex',
-  component: () => import('./container/vuex')
+  path: '/demo',
+  name: 'demo',
+  component: () => import('./container/axios')
 }
 
 export const stores = {
