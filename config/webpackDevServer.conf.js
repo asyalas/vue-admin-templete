@@ -26,6 +26,6 @@ module.exports = {
       watchOptions: { 
         watch:true,
         // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-        poll: false, 
+        poll: 1000, 
       } 
 }
