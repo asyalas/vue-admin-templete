@@ -2,8 +2,15 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
+const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const getClientEnvironment = require('./env');
+// `publicUrl` is just like `publicPath`, but we will provide it to our app
+// as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
+// Omit trailing slash as %PUBLIC_PATH%/xyz looks better than %PUBLIC_PATH%xyz.
+const publicUrl = '';
+// Get environment variables to inject into our app.
+const env = getClientEnvironment(publicUrl); 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -37,7 +44,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       'images':resolve('static/images'),
-      'component' : resolve('src/component')
+      'component' : resolve('src/component'),
+      'utils' : resolve('src/utils')
     }
   },
   module: {
@@ -89,6 +97,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin(env.stringified),
+  ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).
