@@ -24,6 +24,7 @@ module.exports = {
       proxy: {}, 
       quiet: true, // necessary for FriendlyErrorsPlugin 
       watchOptions: { 
+        watch:true,
         // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
         poll: false, 
       } 

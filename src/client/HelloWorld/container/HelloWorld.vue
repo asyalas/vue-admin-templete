@@ -7,7 +7,7 @@
         <router-link to="/ElementUI">ElementUI</router-link>
       </li>
       <li>
-         <router-link to="/Vuex">vuex</router-link>
+         <router-link to="/Vuex">33333</router-link>
       </li>
       <li>
          <router-link to="/Svg">3323</router-link>

@@ -47,6 +47,7 @@ module.exports = new Promise((resolve, reject) => {
     }
   })
 }).then(config => {
+  WebpackDevServer.addDevServerEntrypoints(config, devServerConfig)
   const compiler = webpack(config)
   const devServer = new WebpackDevServer(compiler, devServerConfig)
   const {port, host} = devServerConfig
