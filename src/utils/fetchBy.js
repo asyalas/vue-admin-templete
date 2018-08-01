@@ -27,8 +27,9 @@ service.interceptors.request.use(config => {
   //     config.headers['X-Token'] = getToken()
   //   }
   config.data = {
-    // adminId: '1',
-    adminId: '5fd2a1dfcfc308ce8f380e0b85dc1a9b',
+    adminId: 1,
+    // adminId: '88',
+    // adminId: '5fd2a1dfcfc308ce8f380e0b85dc1a9b',
     ...config.data
   }
   return config

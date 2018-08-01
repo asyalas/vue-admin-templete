@@ -34,6 +34,7 @@ export default{
       }
       return fetchBy({
         url: '/webapi/financial/web/tms/1.0/?service=AppProject.getAppProjectList',
+        // url: '/webapi/stock/web/stock/1.0/?service=Product.getERPProductList',
         data: params
       }).then(res => {
         commit('GET_LIST_SUCCESS', {

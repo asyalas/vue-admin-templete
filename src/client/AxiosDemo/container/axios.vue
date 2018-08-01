@@ -28,6 +28,7 @@ import {mapGetters} from 'vuex'
 const defaultOpt = {
   keywords: '',
   pageNum: 1,
+  // type: 1,
   pageSize: 10
 }
 export default {

@@ -1,10 +1,10 @@
-import * as ElementUI from './ElementUI'
-import * as Vuex from './Vuex'
-import * as HelloWorld from './HelloWorld'
-import * as Redirect from './Redirect'
-import * as Svg from './Svg'
-import * as iView from './iView'
-import * as AxiosDemo from './AxiosDemo'
+import * as ElementUI from './elementui'
+import * as Vuex from './vuex'
+import * as HelloWorld from './helloworld'
+import * as Redirect from './redirect'
+import * as Svg from './svg'
+import * as iView from './iview'
+import * as AxiosDemo from './axiosdemo'
 export {
   ElementUI,
   Vuex,

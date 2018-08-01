@@ -16,12 +16,16 @@ require('../config/env')
 
 const webpack = require('webpack')
 const config = require('../config/webpack.dev.conf')
+const utils = require('../config/utils')
 
-const utils = require('./utils')
+const devServerConfig = require('../config/webpackDevServer.conf')
+const chalk = require('chalk')
+const WebpackDevServer = require('webpack-dev-server')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const notifyOnErrors = true
 module.exports = new Promise((resolve, reject) => {
-  portfinder.basePort = process.env.PORT || config.dev.port
+  portfinder.basePort = process.env.PORT || devServerConfig.port
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err)
@@ -29,20 +33,29 @@ module.exports = new Promise((resolve, reject) => {
       // publish the new Port, necessary for e2e tests
       process.env.PORT = port
       // add port to devServer config
-      config.devServer.port = port
 
       // Add FriendlyErrorsPlugin
       config.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
-          messages: [`Your application is running here: http://${config.devServer.host}:${port}`]
+          messages: [`Your application is running here: http://${devServerConfig.host}:${port}`]
         },
-        onErrors: config.dev.notifyOnErrors
+        onErrors: notifyOnErrors
           ? utils.createNotifierCallback()
           : undefined
       }))
-
       resolve(config)
     }
   })
+}).then(config => {
+  const compiler = webpack(config)
+  const devServer = new WebpackDevServer(compiler, devServerConfig)
+  const {port, host} = devServerConfig
+  // Launch WebpackDevServer.
+  devServer.listen(port, host, err => {
+    if (err) {
+      return console.log(err)
+    }
+    console.log(chalk.cyan('Starting the development server...\n'))
+    // openBrowser(urls.localUrlForBrowser)
+  })
 })
-webpack(config)

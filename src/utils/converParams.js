@@ -15,6 +15,7 @@ export function signEncode (form) {
   if (!md5Key) {
     throw new Error('请检查.env环境变量配置文件！no md5Key')
   }
+  console.log('md5Key=====', md5Key)
   const key = md5Key
   const { params, timeStamp, randomNum } = form
   return md5(params + isEncrypted + timeStamp + randomNum + md5(key))
