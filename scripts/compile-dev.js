@@ -48,37 +48,6 @@ module.exports = new Promise((resolve, reject) => {
   })
 }).then(config => {
   const compiler = webpack(config)
-  const devServerConfig = {
-    'clientLogLevel': 'warning',
-    'historyApiFallback': {
-      'rewrites': [
-        {
-          'from': {
-
-          },
-          'to': '/index.html'
-        }
-      ]
-    },
-    'hot': true,
-    'contentBase': false,
-    'compress': true,
-    'host': 'localhost',
-    'port': 8080,
-    'open': false,
-    'overlay': {
-      'warnings': false,
-      'errors': true
-    },
-    'publicPath': '/',
-    'proxy': {
-
-    },
-    'quiet': false,
-    'watchOptions': {
-      'poll': false
-    }
-  }
   const devServer = new WebpackDevServer(compiler, devServerConfig)
   const {port, host} = devServerConfig
   // Launch WebpackDevServer.

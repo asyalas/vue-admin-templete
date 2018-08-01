@@ -10,7 +10,7 @@
          <router-link to="/Vuex">vuex</router-link>
       </li>
       <li>
-         <router-link to="/Svg">Svg</router-link>
+         <router-link to="/Svg">3323</router-link>
       </li>
       <li>
          <router-link to="/iView">iView</router-link>
