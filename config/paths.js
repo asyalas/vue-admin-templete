@@ -41,4 +41,8 @@ function getServedPath(appPackageJson) {
 // config after eject: we're in ./config/
 module.exports = {
     dotenv: resolveApp('.env'),
+    //build
+    assetsRoot: resolveApp('dist'),
+    assetsSubDirectory: resolveApp('static'),
+    assetsPublicPath: '/',
 };
