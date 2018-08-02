@@ -4,11 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-
-// 导入element-ui UI组件库
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-
+// 国际化
+import i18n from './lang'
 // 初始化全局css
 import 'normalize.css/normalize.css'
 
@@ -26,16 +23,23 @@ requireAll(req)
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
-Vue.use(iView)
+Vue.use(iView, {
+  i18n: function (path, options) {
+    let value = i18n.t(path, options)
+    if (value !== null && value !== undefined) {
+      return value
+    }
+    return ''
+  }
+})
+
+Vue.locale = () => {}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   components: { App },
   template: '<App/>'
 })
-if (module.hot) {
-  module.hot.accept()
-}

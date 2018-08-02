@@ -4,7 +4,11 @@
       <div class="wrap-title">
 
         <Input class="search" v-model="keywords" search placeholder="Enter something..." @search="search"/>
-        <Button type="primary" @click="search">Primary</Button>
+        <Button type="primary" @click="search">{{$t('demo.search')}}</Button>
+        <i-switch v-model="switchBol" size="large" style="margin-left:20px" @on-change="switchChange">
+            <span slot="open">英文</span>
+            <span slot="close">中文</span>
+        </i-switch>
       </div>
       <div class="table-wrap">
         <Table
@@ -15,7 +19,7 @@
           :loading="loading"
         ></Table>
         <div class="page-wrap">
-          <Page :total="count" @on-change="change" class="page" />
+          <Page :total="count" @on-change="change" class="page" show-sizer />
         </div>
 
       </div>
@@ -25,6 +29,8 @@
 </template>
 <script>
 import {mapGetters} from 'vuex'
+
+import getLang from 'utils/getLang'
 const defaultOpt = {
   keywords: '',
   pageNum: 1,
@@ -33,7 +39,9 @@ const defaultOpt = {
 }
 export default {
   data () {
+    const that = this
     return {
+      switchBol: getLang() === 'en',
       columns: [
         {
           title: '应用项目名称',
@@ -70,7 +78,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.show(params)
+                    that.show(params)
                   }
                 }
               }, 'View'),
@@ -81,7 +89,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    that.remove(params.index)
                   }
                 }
               }, 'Delete')
@@ -104,10 +112,20 @@ export default {
     this.getList({keywords: this.keywords})
   },
   methods: {
+    switchChange (bol) {
+      const lang = bol ? 'en' : 'zh'
+      this.$store.dispatch('setLang', {lang})
+    },
     show ({row}) {
-      this.$Modal.info({
-        title: 'User Info',
-        content: `Name：${row.name}`
+      this.$Modal.confirm({
+        title: 'Title',
+        content: '<p>Content of dialog</p><p>Content of dialog</p>',
+        onOk: () => {
+          this.$Message.info('Clicked ok')
+        },
+        onCancel: () => {
+          this.$Message.info('Clicked cancel')
+        }
       })
     },
     remove (index) {

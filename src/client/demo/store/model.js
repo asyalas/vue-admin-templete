@@ -1,5 +1,6 @@
 
 import fetchBy from 'utils/fetchBy'
+import setLang from 'utils/setLang'
 export default{
   namespace: 'list',
   state: {
@@ -25,7 +26,15 @@ export default{
   },
 
   actions: {
-
+    // 设置语言
+    setLang ({ commit }, {lang}) {
+      new Promise((resolve) => {
+        setLang(lang)
+        resolve()
+      }).then(() => {
+        location.reload()
+      })
+    },
     // 异步
     getList ({ commit }, data) {
       commit('GET_LIST_START')

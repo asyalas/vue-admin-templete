@@ -12,7 +12,6 @@ const service = axios.create({
   timeout: 10000, // request timeout
   // 对json数据进行处理，以form-data的形式提交
   transformRequest: [function (data, headers) {
-    console.log(data)
     return converParamsToFormData(normalizeParams(data))
   }],
   method: 'post'
