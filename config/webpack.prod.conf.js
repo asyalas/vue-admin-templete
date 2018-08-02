@@ -55,7 +55,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : paths.outHtmlPath,
-      template: 'index.html',
+      template: paths.isDll ? paths.dllHtml : 'index.html',
       favicon:'favicon.ico',
       inject: true,
       minify: {

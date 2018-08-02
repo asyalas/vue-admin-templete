@@ -1,7 +1,7 @@
 'use strict'
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const path = require('path')
+// const path = require('path')
 const paths = require('./paths')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -23,7 +23,7 @@ module.exports  = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template:  paths.isDll ? paths.dllHtml : 'index.html',
       favicon:'favicon.ico',
       inject: true
     })

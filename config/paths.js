@@ -74,5 +74,13 @@ module.exports = {
     //is open bundle analyzer
     bundleAnalyzerReport : process.env.npm_config_report || false,
     // is open soucre map
-    isOpenSoucreMap:isProduction ? false : true
+    isOpenSoucreMap:isProduction ? false : true,
+    // is open dll reference
+    isDll:true,
+    //package.json path
+    packageJSON : resolveApp('package.json'),
+    //dll manifest path
+    dllManifestPath : path.resolve(resolveApp('dist/dll-manifest.json')),
+    dllOutPutPath : path.resolve(resolveApp('dist')),
+    dllHtml : path.resolve(resolveApp('dist/dll.html')),
 };

@@ -18,12 +18,15 @@ const webpack = require('webpack')
 const config = require('../config/webpack.dev.conf')
 const utils = require('../config/utils')
 
+const paths = require('../config/paths')
+// const ora = require('ora')
 const devServerConfig = require('../config/webpackDevServer.conf')
 const chalk = require('chalk')
 const WebpackDevServer = require('webpack-dev-server')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 const notifyOnErrors = true
+
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || devServerConfig.port
   portfinder.getPort((err, port) => {
@@ -47,8 +50,14 @@ module.exports = new Promise((resolve, reject) => {
     }
   })
 }).then(config => {
-  // 添加热更新
-  WebpackDevServer.addDevServerEntrypoints(config, devServerConfig)
+  if (paths.isDll) {
+    config.plugins.push(
+      new webpack.DllReferencePlugin({
+        // context: paths.contextPath,
+        manifest: paths.dllManifestPath
+      })
+    )
+  }
   const compiler = webpack(config, (err, stats) => {
     if (err) throw err
     process.stdout.write(stats.toString({
@@ -66,6 +75,12 @@ module.exports = new Promise((resolve, reject) => {
 
     console.log(chalk.cyan('  Build complete.\n'))
   })
+
+  /**
+   * 添加热更新
+   * 必须在webpack执行后，否则js监听不到
+   * **/
+  WebpackDevServer.addDevServerEntrypoints(config, devServerConfig)
 
   const devServer = new WebpackDevServer(compiler, devServerConfig)
   const {port, host} = devServerConfig
