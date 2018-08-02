@@ -35,7 +35,7 @@ const i18n = new VueI18n({
   // options: en or zh
   locale: getLang(),
   // set locale messages
-  messages
+  messages,
+  silentTranslationWarn: true
 })
-console.log(i18n)
 export default i18n

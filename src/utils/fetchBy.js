@@ -2,8 +2,12 @@ import axios from 'axios'
 import { Message } from 'iView'
 import {converParamsToFormData, normalizeParams} from './converParams'
 import {envHost} from './env'
-// 国际化
-import i18n from '../lang'
+/**
+ * 国际化
+ * 为什么不用i18n实例，是因为引用后会导致国际化失效
+ * 待研究
+ * **/
+import vm from '../main'
 // create an axios instance
 const baseURL = envHost('webapi.sunmi.com')
 const service = axios.create({
@@ -41,9 +45,9 @@ service.interceptors.request.use(config => {
 })
 // 服务请求error handle
 const showErrorMsg = (error) => {
-  console.log('err' + error) // for debug
+  console.log('err') // for debug
   Message.error({
-    content: i18n.t('common.errCode1'),
+    content: vm.$t('common.errCode1'),
     duration: 2 * 1000
   })
   return Promise.reject(error)
