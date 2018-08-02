@@ -2,6 +2,8 @@ import axios from 'axios'
 import { Message } from 'iView'
 import {converParamsToFormData, normalizeParams} from './converParams'
 import {envHost} from './env'
+// 国际化
+import i18n from '../lang'
 // create an axios instance
 const baseURL = envHost('webapi.sunmi.com')
 const service = axios.create({
@@ -37,11 +39,26 @@ service.interceptors.request.use(config => {
   console.log(error) // for debug
   return Promise.reject(error)
 })
-
+// 服务请求error handle
+const showErrorMsg = (error) => {
+  console.log('err' + error) // for debug
+  Message.error({
+    content: i18n.t('common.errCode1'),
+    duration: 2 * 1000
+  })
+  return Promise.reject(error)
+}
 // respone interceptor
 service.interceptors.response.use(
   response => {
-    return response.data
+    try {
+      if (response.data.code !== 1) {
+        throw new Error(JSON.stringify(response.data))
+      }
+      return response.data
+    } catch (error) {
+      return showErrorMsg(response.data)
+    }
   },
   /**
    * 下面的注释为通过在response里，自定义code来标示请求状态
@@ -76,13 +93,6 @@ service.interceptors.response.use(
   //     return response.data
   //   }
   // },
-  error => {
-    console.log('err' + error) // for debug
-    Message.error({
-      content: error.msg || '服务器响应失败',
-      duration: 2 * 1000
-    })
-    return Promise.reject(error)
-  })
+  error => showErrorMsg(error))
 
 export default service

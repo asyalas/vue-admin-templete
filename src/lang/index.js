@@ -6,8 +6,8 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import iviewEnLocale from 'iview/dist/locale/en-US' // iview lang
 import iviewZhLocale from 'iview/dist/locale/zh-CN'// iview lang
-const en = {}
-const zh = {}
+let en = {}
+let zh = {}
 Object.keys(manifest)
   .filter(key => !!manifest[key].lang)
   .map(key => manifest[key].lang)
@@ -37,5 +37,5 @@ const i18n = new VueI18n({
   // set locale messages
   messages
 })
-
+console.log(i18n)
 export default i18n
