@@ -17,7 +17,7 @@ require('../config/env')
 
 spinner.start()
 
-rm(path.join(paths.assetsRoot, paths.assetsSubDirectory), err => {
+rm(path.join(paths.outPutPath, paths.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {
     spinner.stop()

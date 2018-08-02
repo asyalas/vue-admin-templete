@@ -38,11 +38,41 @@ function getServedPath(appPackageJson) {
     return ensureSlash(servedUrl, true);
 }
 
+const isProduction = process.env.NODE_ENV === 'production'
 // config after eject: we're in ./config/
 module.exports = {
+    //webpack context
+    contextPath:resolveApp(''),
+    //output path
+    outPutPath:resolveApp('dist'),
+    //bulid output index.html path 
+    outHtmlPath:resolveApp('dist/index.html'),
+    //env path
     dotenv: resolveApp('.env'),
-    //build
-    assetsRoot: resolveApp('dist'),
+    //output publicPath
+    assetsPublicPath:'/',
+    //entry path 
+    appPath :resolveApp('src/main.js'),
+    //babel-loader path 
+    appSrc: [resolveApp('src'),  resolveApp('node_modules/webpack-dev-server/client')],
     assetsSubDirectory: resolveApp('static'),
-    assetsPublicPath: '/',
+    //extra resolve-alias
+    extraAlias:{
+      'images':resolveApp('static/images'),
+      'component' : resolveApp('src/component'),
+      'utils' : resolveApp('src/utils')
+    },
+    //eslint-path
+    eslintPath : [resolveApp('src')],
+    //svg-sprite-loader path
+    svgSpritePath : [resolveApp('static/svg')],
+    //static source path
+    staticResolve:(_path)=>path.posix.join('static', _path),
+    // is open Gzip in prodction 
+    productionGzip:true,
+    productionGzipExtensions: ['js', 'css'],
+    //is open bundle analyzer
+    bundleAnalyzerReport : process.env.npm_config_report || false,
+    // is open soucre map
+    isOpenSoucreMap:isProduction ? false : true
 };

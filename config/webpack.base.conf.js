@@ -1,7 +1,6 @@
 'use strict'
 const path = require('path')
-const utils = require('./utils')
-const config = require('../config')
+const paths = require('./paths')
 const webpack = require('webpack')
 const vueLoaderConfig = require('./vue-loader.conf')
 const getClientEnvironment = require('./env');
@@ -14,41 +13,38 @@ const env = getClientEnvironment(publicUrl);
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
-const createLintingRule = () => ({
-  test: /\.(js|vue)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test')],
-  options: {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
-})
-
 module.exports = {
-  context: path.resolve(__dirname, '../'),
-  
+  context: paths.contextPath,
+  entry: {
+    app: paths.appPath
+  },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    path: paths.outPutPath,
+    publicPath:paths.assetsPublicPath,
+
+    filename: 'js/[name].[hash:8].js',
+    chunkFilename: 'js/chunk/[id].[chunkhash:8].chunk.js'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'images':resolve('static/images'),
-      'component' : resolve('src/component'),
-      'utils' : resolve('src/utils')
+      ...paths.extraAlias
     }
   },
   module: {
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: paths.eslintPath,
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+          emitWarning: true
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -58,7 +54,7 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'svg-sprite-loader',
-        include: [resolve('static/svg')],
+        include: paths.svgSpritePath,
         options: {
           symbolId: 'icon-[name]'
         }
@@ -66,23 +62,23 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
-        exclude: [resolve('static/svg')],
+        exclude: paths.svgSpritePath,
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: paths.staticResolve('img/[name].[hash:7].[ext]')
         }
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include:paths.appSrc
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+          name: paths.staticResolve('media/[name].[hash:7].[ext]')
         }
       },
       {
@@ -90,7 +86,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: paths.staticResolve('fonts/[name].[hash:7].[ext]')
         }
       }
     ]
