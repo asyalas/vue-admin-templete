@@ -7,6 +7,8 @@ const paths = require('../config/paths')
 const webpack = require('webpack')
 
 module.exports = {
+  // Don't attempt to continue if there are any errors.
+  bail: true,
   context: paths.contextPath,
   entry: {
     app:paths.appPath
