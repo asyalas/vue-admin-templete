@@ -4,32 +4,22 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/env')
+const paths = require('../config/paths')
+const webpack = require('webpack')
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const createLintingRule = () => ({
-  test: /\.(js|vue)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test')],
-  options: {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
-})
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context: paths.contextPath,
   entry: {
-    app: './src/main.js'
+    app:paths.appPath
   },
   output: {
-    path: config.build.assetsRoot,
+    path: paths.outPutPath,
     filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    publicPath:paths.assetsPublicPath 
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
@@ -39,14 +29,21 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      'images':resolve('static/images'),
-      'component' : resolve('src/component'),
-      'utils' : resolve('src/utils')
+      ...paths.extraAlias
     }
   },
   module: {
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: paths.eslintPath,
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+          emitWarning: !config.dev.showEslintErrorsInOverlay
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -55,7 +52,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include:paths.appSrc
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
