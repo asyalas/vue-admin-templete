@@ -5,9 +5,11 @@
 
         <Input class="search" v-model="keywords" search placeholder="Enter something..." @search="search"/>
         <Button type="primary" @click="search">{{$t('demo.search')}}</Button>
+
+        <svg-icon name='language' class-name='svg'></svg-icon>
         <i-switch v-model="switchBol" size="large" style="margin-left:20px" @on-change="switchChange">
-            <span slot="open">英文</span>
-            <span slot="close">中文</span>
+            <span slot="open">{{$t('demo.English')}}</span>
+            <span slot="close">{{$t('demo.Chinese')}}</span>
         </i-switch>
       </div>
       <div class="table-wrap">
@@ -159,6 +161,11 @@ export default {
         // justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
+        .svg{
+          width: 30px;
+          height: 30px;
+          margin-left:20px
+        }
         .search{
           width: 180px;
           margin-right: 15px
