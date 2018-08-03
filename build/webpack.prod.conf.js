@@ -7,7 +7,7 @@ const merge = require('webpack-merge')
 
 const paths = require('../config/paths')
 // must before require('./webpack.base.conf')
-require('../config/dev.env') 
+require('../config/prod.env') 
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
