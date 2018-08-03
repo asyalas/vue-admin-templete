@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <ul>
       <li>
-         <router-link to="/demo">de2332mo</router-link>
+         <router-link to="/demo">1111</router-link>
       </li>
     </ul>
     <h2>Essential Links</h2>

@@ -1,9 +1,8 @@
 'use strict'
 const path = require('path')
-const paths = require('./paths')
 const utils = require('./utils')
 const webpack = require('webpack')
-// const config = require('../config')
+const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -12,26 +11,36 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
+const env = process.env.NODE_ENV === 'testing'
+  ? require('../config/test.env')
+  : require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
-
-  
   module: {
     rules: utils.styleLoaders({
-      sourceMap: paths.isOpenSoucreMap,
+      sourceMap: config.build.productionSourceMap,
       extract: true,
       usePostCSS: true
     })
   },
-  devtool:false,
+  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  output: {
+    path: config.build.assetsRoot,
+    filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+  },
   plugins: [
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    new webpack.DefinePlugin({
+      'process.env': env
+    }),
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
           warnings: false
         }
       },
-      sourceMap:paths.isOpenSoucreMap,
+      sourceMap: config.build.productionSourceMap,
       parallel: true
     }),
     // extract css into its own file
@@ -46,7 +55,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
     new OptimizeCSSPlugin({
-      cssProcessorOptions:  { safe: true }
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
     }),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
@@ -54,9 +65,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
-        : paths.outHtmlPath,
-      template: paths.isDll ? paths.dllHtml : 'index.html',
-      favicon:'favicon.ico',
+        : config.build.index,
+      template: 'index.html',
       inject: true,
       minify: {
         removeComments: true,
@@ -102,18 +112,18 @@ const webpackConfig = merge(baseWebpackConfig, {
       minChunks: 3
     }),
 
-    // // copy custom static assets
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.resolve(__dirname, '../static'),
-    //     to: config.build.assetsSubDirectory,
-    //     ignore: ['.*']
-    //   }
-    // ])
+    // copy custom static assets
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
   ]
 })
 
-if (paths.productionGzip) {
+if (config.build.productionGzip) {
   const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -122,7 +132,7 @@ if (paths.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        paths.productionGzipExtensions.join('|') +
+        config.build.productionGzipExtensions.join('|') +
         ')$'
       ),
       threshold: 10240,
@@ -131,7 +141,7 @@ if (paths.productionGzip) {
   )
 }
 
-if (paths.bundleAnalyzerReport) {
+if (config.build.bundleAnalyzerReport) {
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
