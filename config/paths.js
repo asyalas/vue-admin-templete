@@ -83,4 +83,6 @@ module.exports = {
     dllManifestPath : path.resolve(resolveApp('dist/dll-manifest.json')),
     dllOutPutPath : path.resolve(resolveApp('dist')),
     dllHtml : path.resolve(resolveApp('dist/dll.html')),
+    //vue-loader config
+    cacheBusting : true,
 };

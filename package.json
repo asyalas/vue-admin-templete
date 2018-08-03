@@ -10,7 +10,11 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage", 
     "test": "npm run unit", 
     "lint": "eslint --ext .js,.vue src test/unit", 
-    "build": "node build/build.js",
+    "build": "npm run build:dev",
+    "build:dev": "rm -rf dist && cross-env SUNMI_ENV=dev node build/build.js",
+    "build:test": "rm -rf dist && cross-env SUNMI_ENV=test node build/build.js",
+    "build:uat": " rm -rf dist && cross-env SUNMI_ENV=uat node build/build.js",
+    "build:pub": "rm -rf dist && cross-env SUNMI_ENV=pub node build/build.js",
     "precommit": "lint-staged"
   },
   "dependencies": {

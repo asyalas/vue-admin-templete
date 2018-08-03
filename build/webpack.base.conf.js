@@ -1,6 +1,5 @@
 'use strict'
 const path = require('path')
-const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/env')
@@ -18,8 +17,9 @@ module.exports = {
   },
   output: {
     path: paths.outPutPath,
-    filename: '[name].js',
-    publicPath:paths.assetsPublicPath 
+    publicPath:paths.assetsPublicPath ,
+    filename: 'js/[name].[hash:8].js',
+    chunkFilename: 'js/chunk/[id].[chunkhash:8].chunk.js'
   },
   plugins: [
     new webpack.DefinePlugin(env.stringified),
@@ -55,11 +55,20 @@ module.exports = {
         include:paths.appSrc
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: paths.svgSpritePath,
+        options: {
+          symbolId: 'icon-[name]'
+        }
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
+        exclude: paths.svgSpritePath,
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: paths.staticResolve('img/[name].[hash:7].[ext]')
         }
       },
       {
@@ -67,7 +76,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+          name: paths.staticResolve('media/[name].[hash:7].[ext]')
         }
       },
       {
@@ -75,7 +84,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: paths.staticResolve('fonts/[name].[hash:7].[ext]')
         }
       }
     ]
