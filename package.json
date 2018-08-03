@@ -11,10 +11,12 @@
     "test": "npm run unit", 
     "lint": "eslint --ext .js,.vue src test/unit", 
     "build": "npm run build:dev",
-    "build:dev": "rm -rf dist && cross-env SUNMI_ENV=dev node build/build.js",
-    "build:test": "rm -rf dist && cross-env SUNMI_ENV=test node build/build.js",
-    "build:uat": " rm -rf dist && cross-env SUNMI_ENV=uat node build/build.js",
-    "build:pub": "rm -rf dist && cross-env SUNMI_ENV=pub node build/build.js",
+    "dll-dev": "rm -rf dist && cross-env NODE_ENV=development node build/dll", 
+    "dll-build": " rm -rf dist && cross-env NODE_ENV=production npm build/dll", 
+    "build:dev": "cross-env SUNMI_ENV=dev node build/build.js",
+    "build:test": "cross-env SUNMI_ENV=test node build/build.js",
+    "build:uat": "ross-env SUNMI_ENV=uat node build/build.js",
+    "build:pub": "cross-env SUNMI_ENV=pub node build/build.js",
     "precommit": "lint-staged"
   },
   "dependencies": {
