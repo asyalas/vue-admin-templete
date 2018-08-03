@@ -4,7 +4,7 @@ const paths = require('../config/paths')
 module.exports = {
   loaders: utils.cssLoaders({
     sourceMap: paths.isOpenSoucreMap,
-    extract: isProduction
+    extract: !paths.isOpenSoucreMap
   }),
   cssSourceMap: paths.isOpenSoucreMap,
   cacheBusting: paths.cacheBusting,

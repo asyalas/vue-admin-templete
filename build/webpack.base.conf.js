@@ -5,10 +5,6 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/env')
 const paths = require('../config/paths')
 const webpack = require('webpack')
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
-
 
 module.exports = {
   context: paths.contextPath,
@@ -28,7 +24,6 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
       ...paths.extraAlias
     }
   },
