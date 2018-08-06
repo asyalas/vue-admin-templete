@@ -148,7 +148,41 @@ export default {
 <style lang="scss">
 
 @import '~styles/media.scss';
-
+.wrap{
+    width: 100%;
+    position: relative;
+    padding: 15px 20%;
+    .wrap-container{
+      background-color: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,.15);
+      padding:15px;
+      box-sizing: border-box;
+      .wrap-title{
+        width: 100%;
+        display: flex;
+        // justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        .svg{
+          width: 30px;
+          height: 30px;
+          margin-left: 20px
+        };
+        .search{
+          width: 180px;
+          margin-right: 15px
+        }
+      }
+    }
+}
+.page-wrap{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  .page{
+    display: inline-block
+  }
+}
 .dome-list {
 
     @include media(xs) {font-size: 6px}
