@@ -62,46 +62,46 @@
 
 ```js
 
-+-- build/                                  ---打生产包的配置文件
-|   --- build.js							---打生产包的脚本
++-- build/                                  --- 打生产包的配置文件
+|   --- build.js							--- 打生产包的脚本
 |   --- check-versions.js					
-|   --- dll.js							    ---打dll包的配置文件
-|   --- utils.js							---vue-cli的配置文件，以后准备废弃
-|   --- webpack.base.conf.js				---webpack基础的配置文件
-|   --- webpack.dev.conf.js					---webpack开发环境的配置文件
-|   --- webpack.dll.conf.js					---webpack dll的配置文件
-|   --- webpack.prod.conf.js				---webpack生产环境的配置文件
+|   --- dll.js							    --- 打dll包的配置文件
+|   --- utils.js							--- vue-cli的配置文件，以后准备废弃
+|   --- webpack.base.conf.js				--- webpack基础的配置文件
+|   --- webpack.dev.conf.js					--- webpack开发环境的配置文件
+|   --- webpack.dll.conf.js					--- webpack dll的配置文件
+|   --- webpack.prod.conf.js				--- webpack生产环境的配置文件
 +-- config/                                 
-|   --- dev.env.js				            ---设置开发环境的环境变量
-|   --- env.js				                ---设置其他的全局变量
-|   --- index.js					        ---vue-cli的配置文件，以后准备废弃
-|   --- paths.js				            ---配置各种webpack的路径及少数的配置
-|   --- prod.env.js				            ---设置生产环境的环境变量
-+-- dist/                                   ---打包的文件和dll文件
-+-- node_modules/                           ---npm下载文件目录
-+-- src/                                    ---核心代码目录
-|   +-- client                              ---业务模块代码
-|   |   +-- demo/                           ---一个业务模块
-|   |   |   --- component				    ---组件
-|   |   |   --- container.	                ---容器组件
-|   |   |   --- i18n/				        ---i18n配置文件
-|   |   |   +-- store/ 				        ---vuex store
-|   |   |   |--- getter.js		            ---vuex数据进行映射
-|   |   |   |--- model.js		            ---vuex的model，数据处理
-|   |   |   --- index.js		            ---导出模块的vuex,router,i18n
-|   |    --- index.js                       ---把业务模块的vuex，router，i18n集成
-|   +-- component/                          ---全局组件存放处
-|   +-- lang/                               ---国际化公共配置
-|   +-- router/                             ---路由集成
-|   +-- store/                              ---vuex集成
-|   +-- styles/                             ---共有样式及方法
-|   +-- utils/                              ---工具函数
+|   --- dev.env.js				            --- 设置开发环境的环境变量
+|   --- env.js				                --- 设置其他的全局变量
+|   --- index.js					        --- vue-cli的配置文件，以后准备废弃
+|   --- paths.js				            --- 配置各种webpack的路径及少数的配置
+|   --- prod.env.js				            --- 设置生产环境的环境变量
++-- dist/                                   --- 打包的文件和dll文件
++-- node_modules/                           --- npm下载文件目录
++-- src/                                    --- 核心代码目录
+|   +-- client                              --- 业务模块代码
+|   |   +-- demo/                           --- 一个业务模块
+|   |   |   --- component				    --- 组件
+|   |   |   --- container.	                --- 容器组件
+|   |   |   --- i18n/				        --- i18n配置文件
+|   |   |   +-- store/ 				        --- vuex store
+|   |   |   |--- getter.js		            --- vuex数据进行映射
+|   |   |   |--- model.js		            --- vuex的model，数据处理
+|   |   |   --- index.js		            --- 导出模块的vuex,router,i18n
+|   |    --- index.js                       --- 把业务模块的vuex，router，i18n集成
+|   +-- component/                          --- 全局组件存放处
+|   +-- lang/                               --- 国际化公共配置
+|   +-- router/                             --- 路由集成
+|   +-- store/                              --- vuex集成
+|   +-- styles/                             --- 共有样式及方法
+|   +-- utils/                              --- 工具函数
 |   --- app.vue                             
-|   --- main.js                             ---主入口
-+-- static/                                 ---静态资源
+|   --- main.js                             --- 主入口
++-- static/                                 --- 静态资源
 +-- test/                                   
-|-- .env.local                              ---启动项目自定义环境配置文件
-|-- .eslintrc                               ---自定义eslint配置文件
+|-- .env.local                              --- 启动项目自定义环境配置文件
+|-- .eslintrc                               --- 自定义eslint配置文件
 |-- package.json  
 
 ```
