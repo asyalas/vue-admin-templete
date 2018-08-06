@@ -1,46 +1,46 @@
 'use strict'
 const path = require('path')
-const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
-function resolve (dir) {
-  return path.join(__dirname, '..', dir)
-}
-
-const createLintingRule = () => ({
-  test: /\.(js|vue)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test')],
-  options: {
-    formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
-  }
-})
+const env = require('../config/env')
+const paths = require('../config/paths')
+const webpack = require('webpack')
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  // Don't attempt to continue if there are any errors.
+  bail: true,
+  context: paths.contextPath,
   entry: {
-    app: './src/main.js'
+    app:paths.appPath
   },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    path: paths.outPutPath,
+    publicPath:paths.assetsPublicPath ,
+    filename: 'js/[name].[hash:8].js',
+    chunkFilename: 'js/chunk/[id].[chunkhash:8].chunk.js'
   },
+  plugins: [
+    new webpack.DefinePlugin(env.stringified),
+  ],
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue','.scss','.sass','.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      ...paths.extraAlias
     }
   },
   module: {
     rules: [
-      ...(config.dev.useEslint ? [createLintingRule()] : []),
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: paths.eslintPath,
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+          emitWarning: !config.dev.showEslintErrorsInOverlay
+        }
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -49,14 +49,23 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include:paths.appSrc
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: paths.svgSpritePath,
+        options: {
+          symbolId: 'icon-[name]'
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
+        exclude: paths.svgSpritePath,
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: paths.staticResolve('img/[name].[hash:7].[ext]')
         }
       },
       {
@@ -64,7 +73,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('media/[name].[hash:7].[ext]')
+          name: paths.staticResolve('media/[name].[hash:7].[ext]')
         }
       },
       {
@@ -72,7 +81,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: paths.staticResolve('fonts/[name].[hash:7].[ext]')
         }
       }
     ]

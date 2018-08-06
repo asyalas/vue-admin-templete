@@ -1,0 +1,9 @@
+
+// 全局引入normalize初始化css
+@import 'normalize.css/normalize.css';
+//全局引入iview css文件
+@import 'iview/dist/styles/iview.css';
+//全局引入一些共有的样式
+@import './style.scss';
+//全局引入一些共有的方法
+@import './media.scss';

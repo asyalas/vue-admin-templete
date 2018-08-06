@@ -4,6 +4,10 @@ const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
 const path = require('path')
+
+const paths = require('../config/paths')
+// must before require('./webpack.base.conf')
+require('../config/dev.env') 
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -12,10 +16,19 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
-
+// if you open dll ,you must set contentBase 
+// Tell the server where to serve content from. 
+// This is only necessary if you want to serve static files.
+// https://webpack.js.org/configuration/dev-server/#devserver-contentbase
+const isWatch = paths.isDll ? {
+  watchContentBase:true,
+  contentBase: paths.outPutPath, 
+}:{
+  contentBase:false
+}
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
+    rules: utils.styleLoaders({ sourceMap: paths.isOpenSoucreMap, usePostCSS: true })
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
@@ -25,11 +38,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
-        { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
+        { from: /.*/, to: path.posix.join(paths.assetsPublicPath, 'index.html') },
       ],
     },
     hot: true,
-    contentBase: false, // since we use CopyWebpackPlugin.
+    ...isWatch, // since we use CopyWebpackPlugin.
     compress: true,
     host: HOST || config.dev.host,
     port: PORT || config.dev.port,
@@ -45,22 +58,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+      template:  paths.isDll ? paths.dllHtml : 'index.html',
       inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
+        from: paths.outPutPath,
         to: config.dev.assetsSubDirectory,
         ignore: ['.*']
       }
