@@ -2,63 +2,65 @@
 
 > A Vue.js project
 ## 安装依赖
-```bash
-npm i 
+```js
+    npm i 
 ```
 ## 运行项目
 ### 平常启项目
-```bash
-npm start 
+```js
+    npm start 
 ```
 ### 如果你想启用dll，需要：
 1、在/config/paths
-```bash
-module.exports = {
-    ...
-    isDll:true,
-    ...
-};
+```js
+    module.exports = {
+        ...
+        isDll:true,
+        ...
+    };
 ```
 2、在package.json,dll里面加入想打入动态链接库的包
 ```bash
- ...
- "dll": [
-    
-  ]
- ...
+    ...
+    "dll": [
+        
+    ]
+    ...
+
 ```
 3、npm run dll-dev / npm run dll-build
 4、npm run dev / npm run build:*
 
 ## 脚本含义
 
-``` bash
-# 拉依赖
-npm install
+```js
 
-# 启开发环境
-npm run dev
-
-# 打开发环境的包
-npm run build
-# eslint检测
-npm run lint
-# 打开发环境的dll包
-npm run dll-dev
-# 打生产环境的dll包
-npm run dll-build
-# 打开发环境的包
-npm run build:dev
-# 打提测环境的包
-npm run build:test
-# 打集成环境的包
-npm run build:uat
-# 打线上环境的包
-npm run build:pub
+    // 拉依赖
+    npm install
+    // 启开发环境
+    npm run dev
+    // 打开发环境的包
+    npm run build
+    // eslint检测
+    npm run lint
+    // 打开发环境的dll包
+    npm run dll-dev
+    // 打生产环境的dll包
+    npm run dll-build
+    // 打开发环境的包
+    npm run build:dev
+    // 打提测环境的包
+    npm run build:test
+    // 打集成环境的包
+    npm run build:uat
+    // 打线上环境的包
+    npm run build:pub
 ```
 
 ### 代码目录
+
 ```js
+
 +-- build/                                  ---打生产包的配置文件
 |   --- build.js							---打生产包的脚本
 |   --- check-versions.js					
@@ -97,9 +99,10 @@ npm run build:pub
 |   --- main.js                             ---主入口
 +-- static/                                 ---静态资源
 +-- test/                                   
---- .env.local                              ---启动项目自定义环境配置文件
---- .eslintrc                               ---自定义eslint配置文件
---- package.json                                    
+|-- .env.local                              ---启动项目自定义环境配置文件
+|-- .eslintrc                               ---自定义eslint配置文件
+|-- package.json  
+
 ```
 - 模块导出的index.js
     ```js
