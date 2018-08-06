@@ -38,17 +38,14 @@ export default{
     // 异步
     getList ({ commit }, data) {
       commit('GET_LIST_START')
-      const params = {
-        ...data
-      }
+
       return fetchBy({
-        url: '/webapi/financial/web/tms/1.0/?service=AppProject.getAppProjectList',
-        // url: '/webapi/stock/web/stock/1.0/?service=Product.getERPProductList',
-        data: params
+        url: '/bar/search?cityId=1',
+        method: 'get'
       }).then(res => {
         commit('GET_LIST_SUCCESS', {
-          source: res.data.result,
-          count: Number(res.data.count)
+          source: res.recordList.map(item => item.valueMap),
+          count: Number(res.recordList.length)
         })
       }).finally(() => {
         commit('GET_LIST_FAIL')

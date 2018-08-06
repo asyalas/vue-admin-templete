@@ -1,24 +1,28 @@
 import axios from 'axios'
 import { Message } from 'iView'
-import {converParamsToFormData, normalizeParams} from './converParams'
-import {envHost} from './env'
 /**
  * 国际化
  * 为什么不用i18n实例，是因为引用后会导致国际化失效
  * 待研究
  * **/
 import vm from '../main'
+// 对接口进行配置，一般用于定义环境，如uat,dev,test等
+const envHost = (path) => path
+const baseURL = envHost('https://www.dianping.com')
 // create an axios instance
-const baseURL = envHost('webapi.sunmi.com')
 const service = axios.create({
   headers: {
+    // 换form-data格式打开
     'Content-Type': 'application/x-www-form-urlencoded'
   },
-  baseURL, // api的base_url
-  timeout: 10000, // request timeout
+  // api的base_url
+  baseURL,
+  // request timeout
+  timeout: 10000,
   // 对json数据进行处理，以form-data的形式提交
   transformRequest: [function (data, headers) {
-    return converParamsToFormData(normalizeParams(data))
+    // 根据具体的项目对请求参数进行加密，转成form-data格式
+    // return converParamsToFormData(normalizeParams(data))
   }],
   method: 'post'
 })
@@ -32,9 +36,7 @@ service.interceptors.request.use(config => {
   //     config.headers['X-Token'] = getToken()
   //   }
   config.data = {
-    adminId: 'a576e872c2125874178c251f7d0ed540',
-    // adminId: '88',
-    // adminId: '1',
+    // 这里可以对所有请求加上默认的数据，比如用户token 或者 用户id
     ...config.data
   }
   return config
@@ -56,7 +58,8 @@ const showErrorMsg = (error) => {
 service.interceptors.response.use(
   response => {
     try {
-      if (response.data.code !== 1) {
+      // 正确的code，其他的全部以错误抛出
+      if (response.data.code !== 200) {
         throw new Error(JSON.stringify(response.data))
       }
       return response.data
