@@ -77,7 +77,7 @@ module.exports = {
     // is open soucre map
     isOpenSoucreMap:isProduction ? false : true,
     // is open dll reference
-    isDll:true,
+    isDll:false,
     //package.json path
     packageJSON : resolveApp('package.json'),
     //dll manifest path
