@@ -12,7 +12,7 @@
             <span slot="close">{{$t('demo.Chinese')}}</span>
         </i-switch>
       </div>
-      <div class="table-wrap">
+      <div class="table-wrap dome-list">
         <Table
           border
           :columns="columns"
@@ -145,40 +145,17 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-.wrap{
-    width: 100%;
-    position: relative;
-    padding: 15px 20%;
-    .wrap-container{
-      background-color: #fff;
-      box-shadow: 0 1px 4px rgba(0,0,0,.15);
-      padding:15px;
-      box-sizing: border-box;
-      .wrap-title{
-        width: 100%;
-        display: flex;
-        // justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-        .svg{
-          width: 30px;
-          height: 30px;
-          margin-left:20px
-        }
-        .search{
-          width: 180px;
-          margin-right: 15px
-        }
-      }
-    }
-}
-.page-wrap{
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-  .page{
-    display: inline-block
-  }
+<style lang="scss">
+
+@import '~styles/media.scss';
+
+.dome-list {
+
+    @include media(xs) {font-size: 6px}
+    @include media(s) {font-size: 5px}
+    @include media(m) {font-size: 4px}
+    @include media(xm) {font-size: 3px}
+    @include media(l) {font-size: 2px}
+    @include media(xl) {font-size: 1px}
 }
 </style>

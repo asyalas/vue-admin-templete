@@ -1,0 +1,29 @@
+ //必须的viewpoints媒体查询map
+ $viewpoints: (
+    xs: 320px,//屏幕尺寸 320px-375px
+    s : 375px,//屏幕尺寸 376px-480px
+    m : 480px,//屏幕尺寸 480px-720px
+    xm: 720px,//屏幕尺寸 720px-900px
+    l : 900px,//屏幕尺寸 900px-1280px
+    xl: 1280px//屏幕尺寸 1280px-2560px
+);
+//参数map-name为断点small,medium,large，它们也是嵌套层的名称
+@mixin media($media-type,$css-obj:()) {
+    //检查是否包含显示器分辨率断点
+    @if map-has-key($viewpoints,$media-type) {
+        //取得断点对应的分辨率值
+        $min-width: map-get($viewpoints, $media-type);
+        @media screen and (min-width: $min-width) {
+            //遍历$map-in-key这个新map中的属性名称和值，输出为css属性
+            $media-css :map-get($css-obj, $media-type);
+            @each $key, $value in media-css  {
+                #{$key}: $value;
+            }
+            @content;
+        }
+    }
+    @else {
+        //断点不合法或未写时，抛出错误信息
+        @warn 'Unfortunately! The #{$map-name} is not a valid parameter or undefinded.';
+    }
+}

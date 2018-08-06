@@ -60,7 +60,8 @@ module.exports = {
     extraAlias:{
       'images':resolveApp('static/images'),
       'component' : resolveApp('src/component'),
-      'utils' : resolveApp('src/utils')
+      'utils' : resolveApp('src/utils'),
+      'styles':resolveApp('src/styles'),
     },
     //eslint-path
     eslintPath : [resolveApp('src')],

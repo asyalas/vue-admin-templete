@@ -6,15 +6,12 @@ import router from './router'
 import store from './store'
 // 国际化
 import i18n from './lang'
-// 初始化全局css
-import 'normalize.css/normalize.css'
-
 // 导入iView UI组件库
 import iView from 'iView'
-import 'iview/dist/styles/iview.css'
-
-import {Svg} from 'component'// svg组件
+// 引入样式库
+import './styles/index.scss'
 // 全局注册svg组件
+import {Svg} from 'component'// svg组件
 Vue.component('svg-icon', Svg)
 // 对svg目录的svg文件自动进行svg-sprite-loader
 const requireAll = requireContext => requireContext.keys().map(requireContext)

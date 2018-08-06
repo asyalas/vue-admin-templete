@@ -23,7 +23,7 @@ module.exports = {
     new webpack.DefinePlugin(env.stringified),
   ],
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.vue','.scss','.sass','.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       ...paths.extraAlias
