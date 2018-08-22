@@ -1,17 +1,10 @@
 <template>
   <div class="wrap">
     <div class="wrap-container">
-      <div class="wrap-title">
-
-        <Input class="search" v-model="keywords" search placeholder="Enter something..." @search="search"/>
-        <Button type="primary" @click="search">{{$t('demo.search')}}</Button>
-
-        <svg-icon name='language' class-name='svg'></svg-icon>
-        <i-switch v-model="switchBol" size="large" style="margin-left:20px" @on-change="switchChange">
-            <span slot="open">{{$t('demo.English')}}</span>
-            <span slot="close">{{$t('demo.Chinese')}}</span>
-        </i-switch>
-      </div>
+      <demoHeader
+      @switchChange='switchChange'
+      @search='search'
+      ></demoHeader>
       <div class="table-wrap dome-list">
         <Table
           border
@@ -32,7 +25,8 @@
 <script>
 import {mapGetters} from 'vuex'
 
-import getLang from 'utils/getLang'
+import demoHeader from '../components/header'
+
 const defaultOpt = {
   keywords: '',
   pageNum: 1,
@@ -40,10 +34,12 @@ const defaultOpt = {
   pageSize: 10
 }
 export default {
+  components: {
+    demoHeader
+  },
   data () {
     const that = this
     return {
-      switchBol: getLang() === 'en',
       columns: [
         {
           title: '搜索项',
@@ -98,15 +94,14 @@ export default {
             ])
           }
         }
-      ],
-      keywords: ''
+      ]
     }
   },
   computed: {
     ...mapGetters({
-      source: 'list.source',
-      loading: 'list.loading',
-      count: 'list.count'
+      source: 'list/source',
+      loading: 'list/loading',
+      count: 'list/count'
     })
   },
 
@@ -116,7 +111,7 @@ export default {
   methods: {
     switchChange (bol) {
       const lang = bol ? 'en' : 'zh'
-      this.$store.dispatch('setLang', {lang})
+      this.$store.dispatch('list/setLang', {lang})
     },
     show ({row}) {
       this.$Modal.confirm({
@@ -134,10 +129,10 @@ export default {
       this.data.splice(index, 1)
     },
     getList (opt = {}) {
-      this.$store.dispatch('getList', {...defaultOpt, ...opt})
+      this.$store.dispatch('list/getList', {...defaultOpt, ...opt})
     },
-    search () {
-      this.getList({keywords: this.keywords})
+    search (val) {
+      this.getList({keywords: val})
     },
     change (pageNum) {
       this.getList({pageNum, keywords: this.keywords})
@@ -157,22 +152,6 @@ export default {
       box-shadow: 0 1px 4px rgba(0,0,0,.15);
       padding:15px;
       box-sizing: border-box;
-      .wrap-title{
-        width: 100%;
-        display: flex;
-        // justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-        .svg{
-          width: 30px;
-          height: 30px;
-          margin-left: 20px
-        };
-        .search{
-          width: 180px;
-          margin-right: 15px
-        }
-      }
     }
 }
 .page-wrap{

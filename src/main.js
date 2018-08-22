@@ -10,6 +10,8 @@ import i18n from './lang'
 import iView from 'iView'
 // 引入样式库
 import './styles/index.scss'
+// 当前客户杜昂
+import os from 'utils/os'
 // 全局注册svg组件
 import {Svg} from 'component'// svg组件
 Vue.component('svg-icon', Svg)
@@ -19,7 +21,11 @@ const req = require.context('../static/svg', false, /\.svg$/)
 requireAll(req)
 
 Vue.config.productionTip = false
-
+const client = (vue, opt) => {
+  Vue.prototype.$isPc = os.isPc
+}
+// 全局注入当前端
+Vue.use(client)
 Vue.use(iView, {
   i18n: function (path, options) {
     let value = i18n.t(path, options)

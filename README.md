@@ -173,6 +173,25 @@
         export default getters
 
         ```
+        ```js
+
+        /*model*/
+        export default{
+            namespace: 'list',
+            state:{
+                source:''
+            }
+        }
+        /*container*/
+        export default {
+            data () {...},
+            computed: {
+                ...mapGetters({
+                    source: 'list/source',
+                })
+            },
+        }
+        ```
     - model
 
         ```js
@@ -182,6 +201,27 @@
         state: {...},
         mutations: {...},
         actions: {...}
+        ```
+
+    - actions
+        基于模块进行拆分，会自动在所有action上加上命名空间（namespace）,在dispatch的时候需要加上namespace/
+        ```js
+        /*model*/
+        export default{
+        namespace: 'list',
+        actions: {
+            getList ({ commit }, data) {...}
+        }
+        /*container*/
+        export default {
+            data () {...},
+            methods: {
+                getList (opt = {}) {
+                    this.$store.dispatch('list/getList', {...defaultOpt, ...opt})
+                }
+            },
+            ...
+        }
         ```
 - i18n
 
