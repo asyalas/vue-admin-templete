@@ -4,7 +4,7 @@
 
 ## 技术栈
 
-> vue + vuex + vue-router + vue-i18n + axios + iview + eslint + webpack
+> vue + vuex + vue-router + vue-i18n + axios + iview + eslint + webpack + sass
 
 ## 实现功能
 
@@ -14,6 +14,7 @@
 - [x] svg sprite
 - [x] eslint + git的precommit
 - [x] 响应式布局方案
+- [x] 全局注入sass变量和方法
 
 ## 安装依赖
 ```js
