@@ -243,4 +243,40 @@
     ...
       <span slot="close">{{$t('demo.Chinese')}}</span>
     ...
-   ```
+
+- jsx
+
+    vue2.0以后的版本都可以使用vue jsx语法了,可以对照react的写法，但还是有点不一样
+    
+    - 方法一 （推荐）
+    
+    ```js
+        /*其他的同react，绑定事件用on-加上事件名来绑定*/
+       <Switch
+          v-model={this.switchBol}
+          size="large"
+          style="margin-left:20px"
+          on-on-change = { this.switchChange}
+        >
+    ```
+
+    - 方法二 
+
+    ```js
+        /*这种方法最安全，但写法不优雅，配置项参考vue render函数的第二个参数*/
+        <Button 
+            
+            {...{
+                attrs:{
+                    type:'primary' 
+                },
+                on: {
+                    click: this.search
+                    }
+                }
+            }
+        ></Button>
+    ```
+
+    ```
+```

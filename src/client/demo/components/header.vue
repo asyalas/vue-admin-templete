@@ -35,14 +35,19 @@ export default vue.component('demoHeader', {
           v-model={this.keywords}
           search={true}
           placeholder='Enter something...'
-          { ...{on: {search: this.search}}} />
+          on-search={this.search} />
 
         <Button type='primary' {...{on: {click: this.search}}}
 
         >{this.$t('demo.search')}</Button>
 
         <svg-icon name='language' class-name='svg'></svg-icon>
-        <Switch v-model={this.switchBol} size="large" style="margin-left:20px" {...{on: {'on-change': this.switchChange}}}>
+        <Switch
+          v-model={this.switchBol}
+          size="large"
+          style="margin-left:20px"
+          on-on-change = { this.switchChange}
+        >
           <span slot="open">{this.$t('demo.English')}</span>
           <span slot="close">{this.$t('demo.Chinese')}</span>
         </Switch>

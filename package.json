@@ -2,8 +2,18 @@
   "name": "demo",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "杨艾林 <747564962@qq.com>",
+  "author": " <747564962@qq.com>",
   "private": true,
+  "keywords": [
+    "vue",
+    "vuex",
+    "vue-router",
+    "jsx",
+    "axios",
+    "iview",
+    "vue-cli",
+    "admin"
+  ],
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
