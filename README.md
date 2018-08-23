@@ -10,6 +10,7 @@
 
 - [x] vue jsx
 - [x] 借助react的dva思想做的模块化
+- [x] 按需加载
 - [x] 国际化
 - [x] svg sprite
 - [x] eslint + git的precommit
