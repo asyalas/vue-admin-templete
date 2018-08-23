@@ -1,6 +1,20 @@
 # 文档
 
-> A Vue.js project
+> 基于vue-cli搭建的一个企业后台级的架构
+
+## 技术栈
+
+> vue + vuex + vue-router + vue-i18n + axios + iview + eslint + webpack
+
+## 实现功能
+
+- [x] vue jsx
+- [x] 借助react的dva思想做的模块化
+- [x] 国际化
+- [x] svg sprite
+- [x] eslint + git的precommit
+- [x] 响应式布局方案
+
 ## 安装依赖
 ```js
     npm i 
