@@ -9,7 +9,7 @@
 ## 实现功能
 
 - [x] vue jsx
-- [x] 借助react的dva思想做的模块化
+- [x] 模块化(i18n,vuex)
 - [x] 按需加载
 - [x] 国际化
 - [x] svg sprite
@@ -167,43 +167,32 @@
         ```
 - vuex
     - getter
-        - 方法一 (推荐)
-
-        ```js
-        const getters = (namespace) => ({
-            source: state => state[namespace].source,
-            loading: state => state[namespace].loading,
-            count: state => state[namespace].count
-        })
-        export default getters
-
-        ```
-        - 方法二
-
-        ```js
-        const getters = {
-            source: state => state.list.source,
-            loading: state => state.list.loading,
-            count: state => state.list.count
-        }
-        export default getters
-
-        ```
         ```js
 
         /*model*/
         export default{
+            namespaced: true,
             namespace: 'list',
             state:{
                 source:''
             }
         }
         /*container*/
+        /*方法一*/
         export default {
             data () {...},
             computed: {
                 ...mapGetters({
                     source: 'list/source',
+                })
+            },
+        }
+        /*方法二 （推荐）*/
+        export default {
+            data () {...},
+            computed: {
+                ...mapGetters('list',{
+                    source: 'source',
                 })
             },
         }

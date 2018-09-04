@@ -1,6 +1,5 @@
 
 import model from './store/model'
-import getter from './store/getter'
 import i18n from './i18n'
 const namespace = 'demo'
 export const route = {
@@ -18,8 +17,7 @@ export const route = {
 }
 
 export const stores = {
-  model,
-  getter
+  model
 }
 export const lang = {
   namespace,

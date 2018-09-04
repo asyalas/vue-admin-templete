@@ -23,38 +23,13 @@ modules.forEach(key => {
   return null
 })
 // 整合所有的getters和actions，添加命名空间
-const gettersArr = []
-modules.forEach(key => {
-  const namespace = getNameSpace(manifest[key].stores)
-  let getter = manifest[key].stores.getter
-  let actions = manifest[key].stores.model.actions
-  // 如果getter是函数，则自动给getter加上namespace
-  if (getter) {
-    if (typeof getter === 'function') {
-      getter = getter(namespace)
-    }
-    Object.entries(getter).forEach(([key, func]) => {
-      getter[`${namespace}/${key}`] = func
-      delete getter[key]
-    })
-    gettersArr.push(getter)
-  }
-  if (actions) {
-    Object.entries(actions).forEach(([key, func]) => {
-      actions[`${namespace}/${key}`] = func
-      delete actions[key]
-    })
-  }
-})
-const getters = Object.assign({}, ...gettersArr)
 const store = new Vuex.Store({
   modules: {
     common,
     ...stores
   },
   getters: {
-    ...commonGetter,
-    ...getters
+    ...commonGetter
   }
 })
 // 注入router的状态

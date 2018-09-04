@@ -1,6 +1,6 @@
-const getters = (namespace) => ({
-  source: state => state[namespace].source,
-  loading: state => state[namespace].loading,
-  count: state => state[namespace].count
+const getters = ({
+  source: state => state.source,
+  loading: state => state.loading,
+  count: state => state.count
 })
 export default getters

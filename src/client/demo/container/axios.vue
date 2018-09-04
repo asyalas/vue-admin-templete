@@ -98,15 +98,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      source: 'list/source',
-      loading: 'list/loading',
-      count: 'list/count'
+    ...mapGetters('list', {
+      source: 'source',
+      loading: 'loading',
+      count: 'count'
     })
   },
 
   created (p) {
     this.getList({keywords: this.keywords})
+  },
+  mounted () {
+    console.log(this)
   },
   methods: {
     switchChange (bol) {

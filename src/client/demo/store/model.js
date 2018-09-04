@@ -1,14 +1,18 @@
 
 import fetchBy from 'utils/fetchBy'
 import setLang from 'utils/setLang'
+import getter from './getter'
 export default{
   namespace: 'list',
+  namespaced: true,
   state: {
     source: [],
     count: 0,
     loading: false
   },
-
+  getters: {
+    ...getter
+  },
   mutations: {
     CHANGE_TXT: (state, {txt}) => {
       state.txt = txt
