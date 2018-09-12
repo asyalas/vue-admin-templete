@@ -30,6 +30,11 @@ const webpackConfig = merge(baseWebpackConfig, {
       uglifyOptions: {
         compress: {
           warnings: false
+        },
+        mangle: {
+          //解决vue在ios10以下的版本上会出现白屏的bug
+          //https://github.com/mishoo/UglifyJS2/issues/1753
+          safari10: true
         }
       },
       sourceMap: paths.isOpenSoucreMap,
