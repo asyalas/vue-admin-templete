@@ -1,11 +1,10 @@
 import axios from 'axios'
-import { Message } from 'iView'
-/**
- * 国际化
- * 为什么不用i18n实例，是因为引用后会导致国际化失效
- * 待研究
- * **/
-import vm from '../main'
+import { Message } from 'iview'
+
+import i18n from '../lang'
+// 解决axios finally在低版本不可用的bug
+// https://github.com/axios/axios/issues/34
+require('promise.prototype.finally').shim()
 // 对接口进行配置，一般用于定义环境，如uat,dev,test等
 const envHost = (path) => path
 const baseURL = envHost('https://www.dianping.com')
@@ -47,11 +46,12 @@ service.interceptors.request.use(config => {
 })
 // 服务请求error handle
 const showErrorMsg = (error) => {
-  console.log('err') // for debug
-  Message.error({
-    content: vm.$t('common.errCode1'),
-    duration: 2 * 1000
+  Message.show({
+    type: 'error',
+    content: i18n.t('common.noLogin'),
+    onClose: () => location.replace('/login')
   })
+  console.log('err') // for debug
   return Promise.reject(error)
 }
 // respone interceptor

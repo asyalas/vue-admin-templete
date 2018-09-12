@@ -7,7 +7,7 @@ import store from './store'
 // 国际化
 import i18n from './lang'
 // 导入iView UI组件库
-import iView from 'iView'
+import iView from 'iview'
 // 引入样式库
 import './styles/index.scss'
 // 当前客户杜昂
