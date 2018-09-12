@@ -48,7 +48,7 @@ service.interceptors.request.use(config => {
 const showErrorMsg = (error) => {
   Message.show({
     type: 'error',
-    content: i18n.t('common.noLogin'),
+    content: i18n.t('common.errCode1'),
     onClose: () => location.replace('/login')
   })
   console.log('err') // for debug
