@@ -12,6 +12,7 @@
 - [x] 模块化(i18n,vuex)
 - [x] 按需加载
 - [x] 国际化
+- [x] 定制打多语言包（基础包 + 语言包的polyfill）
 - [x] svg sprite
 - [x] eslint + git的precommit
 - [x] 响应式布局方案

@@ -12,6 +12,7 @@
         <a
           href="https://vuejs.org"
           target="_blank"
+          class="less"
         >
           Core Docs
         </a>
@@ -20,6 +21,7 @@
         <a
           href="https://forum.vuejs.org"
           target="_blank"
+          class="sass"
         >
           Forum
         </a>
@@ -28,6 +30,7 @@
         <a
           href="https://chat.vuejs.org"
           target="_blank"
+          class="stylus"
         >
           Community Chat
         </a>
@@ -98,6 +101,21 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+  .less{
+    color:@less
+  }
+</style>
+<style lang="scss" scoped>
+  .sass{
+    color:$sass
+  }
+</style>
+<style lang="stylus" scoped>
+.stylus
+  color:stylus
+
+</style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>

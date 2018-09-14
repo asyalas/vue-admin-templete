@@ -27,3 +27,30 @@
         @warn 'Unfortunately! The #{$map-name} is not a valid parameter or undefinded.';
     }
 }
+
+//媒介查询判断是否为横屏
+@mixin isLandscape() {
+    $max-width: map-get($viewpoints, l);
+    @media only screen and (max-device-width:$max-width) and (orientation: landscape) {
+        @content;
+    }
+}
+//判断当前环境的语言
+@mixin lang($lang:en){
+    &:lang(#{$lang}){
+        @if $lang-env == all{
+            @content;
+        }@else if $lang-env == $lang{
+            @content;
+        }@else{
+            
+        }
+    }
+   
+}
+//媒介查询判断是否为iphonex
+@mixin iphoneX() {
+    @media only screen and (device-width: 375px) and (device-height:812px) and (-webkit-device-pixel-ratio:3) {
+        @content;
+    } 
+}
