@@ -1,5 +1,6 @@
 'use strict'
 const path = require('path')
+const paths = require('../config/paths')
 const config = require('../config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const packageConfig = require('../package.json')
@@ -29,6 +30,13 @@ exports.cssLoaders = function (options) {
       path: './build/css-env.js'
     }
   })
+  const  globalSass = {
+    loader: 'sass-resources-loader',
+    options: {
+      // Provide path to the file with resources
+      resources: paths.globalSass,
+    }
+  }
   const postcssLoader = {
     loader: 'postcss-loader',
     options: {
@@ -68,8 +76,8 @@ exports.cssLoaders = function (options) {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less',{},[nodeToSass('less')]),
-    sass: generateLoaders('sass', { indentedSyntax: true },[nodeToSass()]),
-    scss: generateLoaders('sass',{},[nodeToSass()]),
+    sass: generateLoaders('sass', { indentedSyntax: true },[nodeToSass(),globalSass]),
+    scss: generateLoaders('sass',{},[nodeToSass(),globalSass]),
     stylus: generateLoaders('stylus',{},[nodeToSass('stylus')]),
     styl: generateLoaders('stylus',{},[nodeToSass('stylus')])
   }

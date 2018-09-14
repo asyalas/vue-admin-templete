@@ -8,8 +8,12 @@
 </template>
 
 <script>
+import getLang from 'utils/getLang'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    document.documentElement.lang = getLang()
+  }
 }
 </script>
 

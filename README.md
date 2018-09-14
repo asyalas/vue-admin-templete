@@ -12,7 +12,7 @@
 - [x] 模块化(i18n,vuex)
 - [x] 按需加载
 - [x] 国际化
-- [x] 定制打多语言包（基础包 + 语言包的polyfill）
+- [x] 打多语言包（基础包 + 语言包的polyfill）的解决方案
 - [x] svg sprite
 - [x] eslint + git的precommit
 - [x] 响应式布局方案
@@ -73,6 +73,8 @@
     npm run build:uat
     // 打线上环境的包
     npm run build:pub
+    // 打特定的语言包（国际化）*可以为 zh en等，不加就是全量
+    npm run build:pub *
 ```
 
 ### 代码目录
@@ -286,3 +288,34 @@
 
     ```
 ```
+```
+- 语言包
+    推荐使用基准包（中文包）+语言包（额外语言的polyfill）来解决多语言css样式的问题
+
+    ```js
+    //app.vue
+    export default {
+        name: 'App',
+        mounted () {
+            document.documentElement.lang = getLang()
+        }
+    }
+    <style lang="scss" scoped>
+        #app {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            color: #2c3e50;
+            @include lang(){
+                font-size: 2.25rem;
+            }
+            @include lang(cn){
+                font-size:50px
+            }
+            @include lang(ja){
+                font-size:150px
+            }
+        }
+    </style>
+    ```

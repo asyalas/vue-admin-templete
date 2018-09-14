@@ -86,4 +86,8 @@ module.exports = {
     dllHtml : path.resolve(resolveApp('dist/dll.html')),
     //vue-loader config
     cacheBusting : true,
+    globalSass:[
+        resolveApp('src/styles/style.scss'),
+        resolveApp('src/styles/media.scss'),
+    ]
 };
